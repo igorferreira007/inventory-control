@@ -1,4 +1,6 @@
-﻿namespace InventoryControl.Domain.Entities;
+﻿using InventoryControl.Domain.Exceptions;
+
+namespace InventoryControl.Domain.Entities;
 
 public class Product
 {
@@ -37,19 +39,19 @@ public class Product
         Price = price;
     }
 
-    public void AddStock(int quantity)
+    public void IncreaseStock(int quantity)
     {
         ValidateQuantity(quantity);
 
         StockQuantity += quantity;
     }
 
-    public void RemoveStock(int quantity)
+    public void DecreaseStock(int quantity)
     {
         ValidateQuantity(quantity);
 
         if (quantity > StockQuantity)
-            throw new ArgumentException("Não há estoque suficiente para remover a quantidade solicitada.");
+            throw new DomainException("Não há estoque suficiente para remover a quantidade solicitada.");
 
         StockQuantity -= quantity;
     }
@@ -65,18 +67,18 @@ public class Product
     private static void ValidateName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("O nome não pode ser vazio.");
+            throw new DomainException("O nome não pode ser vazio.");
     }
 
     private static void ValidatePrice(decimal price)
     {
         if (price <= 0)
-            throw new ArgumentException("O preço deve ser maior que zero.");
+            throw new DomainException("O preço deve ser maior que zero.");
     }
 
     private static void ValidateQuantity(int quantity)
     {
         if (quantity <= 0)
-            throw new ArgumentException("A quantidade deve ser maior que zero.");
+            throw new DomainException("A quantidade deve ser maior que zero.");
     }
 }
