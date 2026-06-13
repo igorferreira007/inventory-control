@@ -1,37 +1,82 @@
-﻿namespace InventoryControl.Domain.entities;
+﻿namespace InventoryControl.Domain.Entities;
 
 public class Product
 {
-    private const string _invalidName = "O nome não pode ser vazio.";
-    private const string _invalidPrice = "O preço não pode ser menor que zero.";
-    private const string _invalidStockQuantity = "A quantidade em estoque não pode ser menor que zero.";
-
     public long Id { get; private set; }
     public string Name { get; private set; }
     public string? Description { get; private set; }
     public decimal Price { get; private set; }
     public int StockQuantity { get; private set; }
-    public DateTime CreatedAt { get; private set; } = DateTime.Now;
+    public DateTime CreatedAt { get; private set; }
 
-    public Product(string name, string? description, decimal price, int stockQuantity)
+    private Product(string name, string? description, decimal price)
     {
         Name = name;
         Description = description;
         Price = price;
-        StockQuantity = stockQuantity;
+        StockQuantity = 0;
+        CreatedAt = DateTime.UtcNow;
     }
 
-    public static Product Create(string name, string? description, decimal price, int stockQuantity)
+    public void ChangeName(string name)
+    {
+        ValidateName(name);
+
+        Name = name;
+    }
+
+    public void ChangeDescription(string? description)
+    {
+        Description = description;
+    }
+
+    public void ChangePrice(decimal price)
+    {
+        ValidatePrice(price);
+
+        Price = price;
+    }
+
+    public void AddStock(int quantity)
+    {
+        ValidateQuantity(quantity);
+
+        StockQuantity += quantity;
+    }
+
+    public void RemoveStock(int quantity)
+    {
+        ValidateQuantity(quantity);
+
+        if (quantity > StockQuantity)
+            throw new ArgumentException("Não há estoque suficiente para remover a quantidade solicitada.");
+
+        StockQuantity -= quantity;
+    }
+
+    public static Product Create(string name, string? description, decimal price)
+    {
+        ValidateName(name);
+        ValidatePrice(price);
+
+        return new Product(name, description, price);
+    }
+
+    private static void ValidateName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException(_invalidName);
+            throw new ArgumentException("O nome não pode ser vazio.");
+    }
 
+    private static void ValidatePrice(decimal price)
+    {
         if (price <= 0)
-            throw new ArgumentException(_invalidPrice);
+            throw new ArgumentException("O preço deve ser maior que zero.");
+    }
 
-        if (stockQuantity <= 0)
-            throw new ArgumentException(_invalidStockQuantity);
-
-        return new Product(name, description, price, stockQuantity);
+    private static void ValidateQuantity(int quantity)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("A quantidade deve ser maior que zero.");
     }
 }
