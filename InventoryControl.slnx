@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/InventoryControl.Application/InventoryControl.Application.csproj" />
+    <Project Path="src/InventoryControl.Domain/InventoryControl.Domain.csproj" />
+    <Project Path="src/InventoryControl.Infrastructure/InventoryControl.Infrastructure.csproj" />
+    <Project Path="src/InventoryControl.Presentation/InventoryControl.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/InventoryControl.Application.Tests/InventoryControl.Application.Tests.csproj" />
+  </Folder>
+</Solution>
