@@ -7,5 +7,6 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/InventoryControl.Application.Tests/InventoryControl.Application.Tests.csproj" />
+    <Project Path="tests/InventoryControl.Domain.Tests/InventoryControl.Domain.Tests.csproj" Id="6a1153a1-fb8c-46fc-ba76-e905e21e8037" />
   </Folder>
 </Solution>
