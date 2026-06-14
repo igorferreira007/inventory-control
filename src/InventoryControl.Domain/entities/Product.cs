@@ -11,13 +11,21 @@ public class Product
     public int StockQuantity { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
-    private Product(string name, string? description, decimal price)
+    private Product(string name, decimal price, string? description = null)
     {
         Name = name;
         Description = description;
         Price = price;
         StockQuantity = 0;
         CreatedAt = DateTime.UtcNow;
+    }
+
+    public static Product Create(string name, decimal price, string? description = null)
+    {
+        ValidateName(name);
+        ValidatePrice(price);
+
+        return new Product(name, price, description);
     }
 
     public void ChangeName(string name)
@@ -54,14 +62,6 @@ public class Product
             throw new DomainException("Não há estoque suficiente para remover a quantidade solicitada.");
 
         StockQuantity -= quantity;
-    }
-
-    public static Product Create(string name, string? description, decimal price)
-    {
-        ValidateName(name);
-        ValidatePrice(price);
-
-        return new Product(name, description, price);
     }
 
     private static void ValidateName(string name)
