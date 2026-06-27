@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="PAGE_NUMBER_GREATER_THAN_ZERO" xml:space="preserve">
+    <value>O número da página deve ser maior que zero.</value>
+  </data>
+  <data name="PAGE_SIZE_GREATER_THAN_ZERO" xml:space="preserve">
+    <value>O tamanho da página deve ser maior que zero.</value>
+  </data>
   <data name="PRODUCT_ALREADY_EXISTS" xml:space="preserve">
     <value>Um produto com esse nome já existe.</value>
   </data>
   <data name="PRODUCT_DESCRIPTION_MAXIMUM_LENGTH" xml:space="preserve">
     <value>A descrição do produto não deve exceder 1000 caracteres.</value>
+  </data>
+  <data name="PRODUCT_ID_INVALID" xml:space="preserve">
+    <value>Id inválido.</value>
   </data>
   <data name="PRODUCT_NAME_MAXIMUM_LENGTH" xml:space="preserve">
     <value>O nome do produto não deve exceder 100 caracteres.</value>
@@ -134,5 +143,8 @@
   </data>
   <data name="PRODUCT_PRICE_GREATER_THAN_ZERO" xml:space="preserve">
     <value>O preço deve ser maior que zero.</value>
+  </data>
+  <data name="SEARCH_TERM_MAX_LENGTH" xml:space="preserve">
+    <value>O termo de pesquisa não pode exceder 100 caracteres.</value>
   </data>
 </root>

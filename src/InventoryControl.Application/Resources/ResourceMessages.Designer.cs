@@ -61,6 +61,24 @@ namespace InventoryControl.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O número da página deve ser maior que zero..
+        /// </summary>
+        public static string PAGE_NUMBER_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("PAGE_NUMBER_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O tamanho da página deve ser maior que zero..
+        /// </summary>
+        public static string PAGE_SIZE_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("PAGE_SIZE_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Um produto com esse nome já existe..
         /// </summary>
         public static string PRODUCT_ALREADY_EXISTS {
@@ -75,6 +93,15 @@ namespace InventoryControl.Application.Resources {
         public static string PRODUCT_DESCRIPTION_MAXIMUM_LENGTH {
             get {
                 return ResourceManager.GetString("PRODUCT_DESCRIPTION_MAXIMUM_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id inválido..
+        /// </summary>
+        public static string PRODUCT_ID_INVALID {
+            get {
+                return ResourceManager.GetString("PRODUCT_ID_INVALID", resourceCulture);
             }
         }
         
@@ -111,6 +138,15 @@ namespace InventoryControl.Application.Resources {
         public static string PRODUCT_PRICE_GREATER_THAN_ZERO {
             get {
                 return ResourceManager.GetString("PRODUCT_PRICE_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O termo de pesquisa não pode exceder 100 caracteres..
+        /// </summary>
+        public static string SEARCH_TERM_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("SEARCH_TERM_MAX_LENGTH", resourceCulture);
             }
         }
     }
