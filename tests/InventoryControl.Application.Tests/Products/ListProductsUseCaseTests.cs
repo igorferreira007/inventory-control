@@ -26,9 +26,9 @@ public class ListProductsUseCaseTests
     [Fact]
     public async Task Should_List_All_Products()
     {
-        _repository.Products.Add(ProductFactory.Create(id: 1));
-        _repository.Products.Add(ProductFactory.Create(id: 2));
-        _repository.Products.Add(ProductFactory.Create(id: 3));
+        _repository.Add(ProductFactory.Create(id: 1));
+        _repository.Add(ProductFactory.Create(id: 2));
+        _repository.Add(ProductFactory.Create(id: 3));
         var request = new ListProductsRequestDto(PageNumber: 1, PageSize: 20);
 
         var result = await _sut.Execute(request);
@@ -59,9 +59,9 @@ public class ListProductsUseCaseTests
     [Fact]
     public async Task Should_Filter_Products_By_Search_Term()
     {
-        _repository.Products.Add(ProductFactory.Create(id: 1, name: "Product test 1"));
-        _repository.Products.Add(ProductFactory.Create(id: 2, name: "Product test 2"));
-        _repository.Products.Add(ProductFactory.Create(id: 3, name: "Product test 3"));
+        _repository.Add(ProductFactory.Create(id: 1, name: "Product test 1"));
+        _repository.Add(ProductFactory.Create(id: 2, name: "Product test 2"));
+        _repository.Add(ProductFactory.Create(id: 3, name: "Product test 3"));
         var request = new ListProductsRequestDto(PageNumber: 1, PageSize: 20, SearchTerm: "Product test 2");
 
         var result = await _sut.Execute(request);
@@ -77,9 +77,9 @@ public class ListProductsUseCaseTests
     [Fact]
     public async Task Should_Return_Only_Page_Size_Products()
     {
-        _repository.Products.Add(ProductFactory.Create(id: 1));
-        _repository.Products.Add(ProductFactory.Create(id: 2));
-        _repository.Products.Add(ProductFactory.Create(id: 3));
+        _repository.Add(ProductFactory.Create(id: 1));
+        _repository.Add(ProductFactory.Create(id: 2));
+        _repository.Add(ProductFactory.Create(id: 3));
         var request = new ListProductsRequestDto(PageNumber: 1, PageSize: 1);
 
         var result = await _sut.Execute(request);
@@ -96,9 +96,9 @@ public class ListProductsUseCaseTests
     [Fact]
     public async Task Should_Return_Products_From_Second_Page()
     {
-        _repository.Products.Add(ProductFactory.Create(id: 1));
-        _repository.Products.Add(ProductFactory.Create(id: 2));
-        _repository.Products.Add(ProductFactory.Create(id: 3));
+        _repository.Add(ProductFactory.Create(id: 1));
+        _repository.Add(ProductFactory.Create(id: 2));
+        _repository.Add(ProductFactory.Create(id: 3));
         var request = new ListProductsRequestDto(PageNumber: 2, PageSize: 1);
 
         var result = await _sut.Execute(request);
