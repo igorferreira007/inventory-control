@@ -142,6 +142,15 @@ namespace InventoryControl.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A quantidade deve ser maior que zero..
+        /// </summary>
+        public static string QUANTITY_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("QUANTITY_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O termo de pesquisa não pode exceder 100 caracteres..
         /// </summary>
         public static string SEARCH_TERM_MAX_LENGTH {
