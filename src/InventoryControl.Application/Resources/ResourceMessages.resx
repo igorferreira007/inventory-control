@@ -144,6 +144,9 @@
   <data name="PRODUCT_PRICE_GREATER_THAN_ZERO" xml:space="preserve">
     <value>O preço deve ser maior que zero.</value>
   </data>
+  <data name="QUANTITY_GREATER_THAN_ZERO" xml:space="preserve">
+    <value>A quantidade deve ser maior que zero.</value>
+  </data>
   <data name="SEARCH_TERM_MAX_LENGTH" xml:space="preserve">
     <value>O termo de pesquisa não pode exceder 100 caracteres.</value>
   </data>
