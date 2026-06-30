@@ -50,9 +50,21 @@ public class PostgresProductRepository : IProductRepository
         product.AssignId((long)generateId!);
     }
 
-    public Task DeleteAsync(Product product)
+    public async Task DeleteAsync(Product product)
     {
-        throw new NotImplementedException();
+        const string sql = """
+            DELETE FROM products
+            WHERE id = @id;
+            """;
+
+        await using var connection = _connectionFactory.CreateConnection();
+        await connection.OpenAsync();
+
+        await using var command = new NpgsqlCommand(sql, connection);
+
+        command.Parameters.AddWithValue("@id", product.Id);
+
+        await command.ExecuteNonQueryAsync();
     }
 
     public async Task<Product?> FindByIdAsync(long id)
@@ -163,8 +175,24 @@ public class PostgresProductRepository : IProductRepository
         return products;
     }
 
-    public Task SaveAsync(Product product)
+    public async Task SaveAsync(Product product)
     {
-        throw new NotImplementedException();
+        const string sql = """
+            UPDATE products
+            SET name = @name, description = @description, price = @price, stock_quantity = @stock_quantity
+            WHERE id = @id;
+            """;
+
+        await using var connection = _connectionFactory.CreateConnection();
+        await connection.OpenAsync();
+
+        await using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@id", product.Id);
+        command.Parameters.AddWithValue("@name", product.Name);
+        command.Parameters.AddWithValue("@description", product.Description is null ? DBNull.Value : product.Description);
+        command.Parameters.AddWithValue("@price", product.Price);
+        command.Parameters.AddWithValue("@stock_quantity", product.StockQuantity);
+
+        await command.ExecuteNonQueryAsync();
     }
 }
