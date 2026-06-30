@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/InventoryControl.Application/InventoryControl.Application.csproj" />
     <Project Path="src/InventoryControl.Domain/InventoryControl.Domain.csproj" />
@@ -8,5 +11,6 @@
   <Folder Name="/tests/">
     <Project Path="tests/InventoryControl.Application.Tests/InventoryControl.Application.Tests.csproj" />
     <Project Path="tests/InventoryControl.Domain.Tests/InventoryControl.Domain.Tests.csproj" Id="6a1153a1-fb8c-46fc-ba76-e905e21e8037" />
+    <Project Path="tests/InventoryControl.Infrastructure.Tests/InventoryControl.Infrastructure.Tests.csproj" Id="6b1230a9-896b-46ec-a053-b550eef9dc12" />
   </Folder>
 </Solution>
