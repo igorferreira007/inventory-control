@@ -1,3 +1,7 @@
+using InventoryControl.Application.DependencyInjection;
+using InventoryControl.Infrastructure.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace InventoryControl.Presentation;
 
 internal static class Program
@@ -11,6 +15,22 @@ internal static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
+
+        var services = new ServiceCollection();
+
+        const string connectionString =
+            "Host=localhost;Port=5432;Database=inventory_control;Username=postgres;Password=postgres";
+
+        services.AddApplication();
+        services.AddInfrastructure(connectionString);
+
+        services.AddTransient<Form1>();
+
+        using var serviceProvider = services.BuildServiceProvider();
+
+        var mainForm = serviceProvider.GetRequiredService<Form1>();
+
+
+        System.Windows.Forms.Application.Run(mainForm);
     }
 }
