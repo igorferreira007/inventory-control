@@ -25,11 +25,11 @@ internal static class Program
         services.AddInfrastructure(connectionString);
 
         services.AddTransient<Form1>();
+        services.AddTransient<MainForm>();
 
         using var serviceProvider = services.BuildServiceProvider();
 
-        var mainForm = serviceProvider.GetRequiredService<Form1>();
-
+        var mainForm = serviceProvider.GetRequiredService<MainForm>();
 
         System.Windows.Forms.Application.Run(mainForm);
     }
