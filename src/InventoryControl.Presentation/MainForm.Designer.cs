@@ -174,6 +174,7 @@ partial class MainForm
         newProductButton.TabIndex = 7;
         newProductButton.Text = "Novo Produto";
         newProductButton.UseVisualStyleBackColor = true;
+        newProductButton.Click += this.newProductButton_Click;
         // 
         // topFlowLayoutPanel
         // 
@@ -218,6 +219,7 @@ partial class MainForm
         MinimumSize = new Size(816, 0);
         Name = "MainForm";
         Text = "MainForm";
+        WindowState = FormWindowState.Maximized;
         Load += MainForm_Load;
         mainTableLayoutPanel.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)productsDataGridView).EndInit();
