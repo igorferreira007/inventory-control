@@ -7,6 +7,8 @@ public partial class MainForm : Form
 {
     private readonly ListProductsUseCase? _listProductsUseCase;
     private readonly CreateProductUseCase? _createProductUseCase;
+    private readonly UpdateProductUseCase? _updateProductUseCase;
+    private readonly GetProductUseCase? _getProductUseCase;
 
     public MainForm()
     {
@@ -15,10 +17,14 @@ public partial class MainForm : Form
 
     public MainForm(
         ListProductsUseCase listProductsUseCase,
-        CreateProductUseCase createProductUseCase) : this()
+        CreateProductUseCase createProductUseCase,
+        UpdateProductUseCase? updateProductUseCase,
+        GetProductUseCase? getProductUseCase) : this()
     {
         _listProductsUseCase = listProductsUseCase;
         _createProductUseCase = createProductUseCase;
+        _updateProductUseCase = updateProductUseCase;
+        _getProductUseCase = getProductUseCase;
     }
 
     private void bottomPanel_Resize(object sender, EventArgs e)
@@ -123,6 +129,53 @@ public partial class MainForm : Form
         }
 
         using var productForm = new ProductForm(_createProductUseCase);
+
+        var result = productForm.ShowDialog(this);
+
+        if (result == DialogResult.OK)
+            await LoadProductAsync();
+    }
+
+    private long? GetSelectedProductId()
+    {
+        if (productsDataGridView.CurrentRow is null)
+            return null;
+
+        var product = productsDataGridView.CurrentRow.DataBoundItem as ProductResponseDto;
+
+        return product?.Id;
+    }
+
+    private async void editProductButton_Click(object sender, EventArgs e)
+    {
+        if (_getProductUseCase is null || _updateProductUseCase is null)
+        {
+            MessageBox.Show(
+                "Use cases não foram carregados pela injeção de dependência.",
+                "Erro",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+
+            return;
+        }
+
+        var productId = GetSelectedProductId();
+
+        if (productId is null)
+        {
+            MessageBox.Show(
+                "Selecione um produto para editar.",
+                "Atenção",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+
+            return;
+        }
+
+        using var productForm = new ProductForm(
+            productId.Value,
+            _updateProductUseCase,
+            _getProductUseCase);
 
         var result = productForm.ShowDialog(this);
 

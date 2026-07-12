@@ -252,6 +252,7 @@ partial class ProductForm
         Name = "ProductForm";
         StartPosition = FormStartPosition.CenterParent;
         Text = "Produto";
+        Load += ProductForm_Load;
         mainTableLayoutPanel.ResumeLayout(false);
         mainTableLayoutPanel.PerformLayout();
         fieldsTableLayoutPanel.ResumeLayout(false);
