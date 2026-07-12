@@ -6,15 +6,19 @@ namespace InventoryControl.Presentation;
 public partial class MainForm : Form
 {
     private readonly ListProductsUseCase? _listProductsUseCase;
+    private readonly CreateProductUseCase? _createProductUseCase;
 
     public MainForm()
     {
         InitializeComponent();
     }
 
-    public MainForm(ListProductsUseCase listProductsUseCase) : this()
+    public MainForm(
+        ListProductsUseCase listProductsUseCase,
+        CreateProductUseCase createProductUseCase) : this()
     {
         _listProductsUseCase = listProductsUseCase;
+        _createProductUseCase = createProductUseCase;
     }
 
     private void bottomPanel_Resize(object sender, EventArgs e)
@@ -103,5 +107,26 @@ public partial class MainForm : Form
         {
             e.Handled = true;
         }
+    }
+
+    private async void newProductButton_Click(object sender, EventArgs e)
+    {
+        if (_createProductUseCase is null)
+        {
+            MessageBox.Show(
+                "Use case não foi carregado pela injeção de dependência.",
+                "Erro",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+
+            return;
+        }
+
+        using var productForm = new ProductForm(_createProductUseCase);
+
+        var result = productForm.ShowDialog(this);
+
+        if (result == DialogResult.OK)
+            await LoadProductAsync();
     }
 }
