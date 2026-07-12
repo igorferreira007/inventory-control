@@ -131,6 +131,7 @@ partial class MainForm
         editProductButton.TabIndex = 1;
         editProductButton.Text = "Editar";
         editProductButton.UseVisualStyleBackColor = true;
+        editProductButton.Click += editProductButton_Click;
         // 
         // increaseStockButton
         // 
@@ -174,7 +175,7 @@ partial class MainForm
         newProductButton.TabIndex = 7;
         newProductButton.Text = "Novo Produto";
         newProductButton.UseVisualStyleBackColor = true;
-        newProductButton.Click += this.newProductButton_Click;
+        newProductButton.Click += newProductButton_Click;
         // 
         // topFlowLayoutPanel
         // 
