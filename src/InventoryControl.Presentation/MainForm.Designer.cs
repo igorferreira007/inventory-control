@@ -107,6 +107,7 @@ partial class MainForm
         deleteProductButton.TabIndex = 6;
         deleteProductButton.Text = "Excluir";
         deleteProductButton.UseVisualStyleBackColor = true;
+        deleteProductButton.Click += deleteProductButton_Click;
         // 
         // bottomFlowLayoutPanel
         // 
