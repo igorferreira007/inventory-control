@@ -9,6 +9,7 @@ public partial class MainForm : Form
     private readonly CreateProductUseCase? _createProductUseCase;
     private readonly UpdateProductUseCase? _updateProductUseCase;
     private readonly GetProductUseCase? _getProductUseCase;
+    private readonly DeleteProductUseCase? _deleteProductUseCase;
 
     public MainForm()
     {
@@ -19,12 +20,14 @@ public partial class MainForm : Form
         ListProductsUseCase listProductsUseCase,
         CreateProductUseCase createProductUseCase,
         UpdateProductUseCase? updateProductUseCase,
-        GetProductUseCase? getProductUseCase) : this()
+        GetProductUseCase? getProductUseCase,
+        DeleteProductUseCase? deleteProductUseCase) : this()
     {
         _listProductsUseCase = listProductsUseCase;
         _createProductUseCase = createProductUseCase;
         _updateProductUseCase = updateProductUseCase;
         _getProductUseCase = getProductUseCase;
+        _deleteProductUseCase = deleteProductUseCase;
     }
 
     private void bottomPanel_Resize(object sender, EventArgs e)
@@ -181,5 +184,66 @@ public partial class MainForm : Form
 
         if (result == DialogResult.OK)
             await LoadProductAsync();
+    }
+
+    private async void deleteProductButton_Click(object sender, EventArgs e)
+    {
+        if (_deleteProductUseCase is null)
+        {
+            MessageBox.Show(
+                 "Use cases não foram carregados pela injeção de dependência.",
+                 "Erro",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Error);
+
+            return;
+        }
+
+        var productId = GetSelectedProductId();
+
+        if (productId is null)
+        {
+            MessageBox.Show(
+                "Selecione um produto para excluir.",
+                "Atenção",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+
+            return;
+        }
+
+        var confirmation = MessageBox.Show(
+            "Deseja realmente excluir o produto?",
+            "Confirmar exclusão",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+        if (confirmation != DialogResult.Yes)
+            return;
+
+        var request = new DeleteProductRequestDto(productId.Value);
+
+        var result = await _deleteProductUseCase.Execute(request);
+
+        if (result.IsFailure)
+        {
+            MessageBox.Show(
+                result.Message,
+                "Erro",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+
+            await LoadProductAsync();
+
+            return;
+        }
+
+        MessageBox.Show(
+                "Produto excluído com sucesso.",
+                "Sucesso",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+        await LoadProductAsync();
     }
 }
