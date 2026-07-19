@@ -10,6 +10,8 @@ public partial class MainForm : Form
     private readonly UpdateProductUseCase? _updateProductUseCase;
     private readonly GetProductUseCase? _getProductUseCase;
     private readonly DeleteProductUseCase? _deleteProductUseCase;
+    private readonly IncreaseProductStockUseCase? _increaseProductStockUseCase;
+    private readonly DecreaseProductStockUseCase? _decreaseProductStockUseCase;
 
     public MainForm()
     {
@@ -19,15 +21,19 @@ public partial class MainForm : Form
     public MainForm(
         ListProductsUseCase listProductsUseCase,
         CreateProductUseCase createProductUseCase,
-        UpdateProductUseCase? updateProductUseCase,
-        GetProductUseCase? getProductUseCase,
-        DeleteProductUseCase? deleteProductUseCase) : this()
+        UpdateProductUseCase updateProductUseCase,
+        GetProductUseCase getProductUseCase,
+        DeleteProductUseCase deleteProductUseCase,
+        IncreaseProductStockUseCase increaseProductStockUseCase,
+        DecreaseProductStockUseCase decreaseProductStockUseCase) : this()
     {
         _listProductsUseCase = listProductsUseCase;
         _createProductUseCase = createProductUseCase;
         _updateProductUseCase = updateProductUseCase;
         _getProductUseCase = getProductUseCase;
         _deleteProductUseCase = deleteProductUseCase;
+        _increaseProductStockUseCase = increaseProductStockUseCase;
+        _decreaseProductStockUseCase = decreaseProductStockUseCase;
     }
 
     private void bottomPanel_Resize(object sender, EventArgs e)
@@ -245,5 +251,42 @@ public partial class MainForm : Form
                 MessageBoxIcon.Information);
 
         await LoadProductAsync();
+    }
+
+    private async void increaseStockButton_Click(object sender, EventArgs e)
+    {
+        if (_increaseProductStockUseCase is null || _getProductUseCase is null)
+        {
+            MessageBox.Show(
+                "Use cases não foram carregados pela injeção de dependência.",
+                "Erro",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+
+            return;
+        }
+
+        var productId = GetSelectedProductId();
+
+        if (productId is null)
+        {
+            MessageBox.Show(
+                "Selecione um produto para editar.",
+                "Atenção",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+
+            return;
+        }
+
+        using var stockMovementForm = new StockMovementForm(
+            productId.Value,
+            _increaseProductStockUseCase,
+            _getProductUseCase);
+
+        var result = stockMovementForm.ShowDialog(this);
+
+        if (result == DialogResult.OK)
+            await LoadProductAsync();
     }
 }

@@ -143,6 +143,7 @@ partial class MainForm
         increaseStockButton.TabIndex = 3;
         increaseStockButton.Text = "Entrada Estoque";
         increaseStockButton.UseVisualStyleBackColor = true;
+        increaseStockButton.Click += increaseStockButton_Click;
         // 
         // decreaseStockButton
         // 
