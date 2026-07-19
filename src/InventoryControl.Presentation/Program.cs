@@ -26,6 +26,7 @@ internal static class Program
 
         services.AddTransient<Form1>();
         services.AddTransient<MainForm>();
+        services.AddTransient<StockMovementForm>();
 
         using var serviceProvider = services.BuildServiceProvider();
 

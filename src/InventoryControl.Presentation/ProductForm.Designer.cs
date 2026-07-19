@@ -40,9 +40,9 @@ partial class ProductForm
         nameFlowLayoutPanel = new FlowLayoutPanel();
         nameLabel = new Label();
         nameTextBox = new TextBox();
-        actionsFlowLayoutPanel = new FlowLayoutPanel();
-        cancelButton = new Button();
         saveButton = new Button();
+        cancelButton = new Button();
+        actionsFlowLayoutPanel = new FlowLayoutPanel();
         mainTableLayoutPanel.SuspendLayout();
         fieldsTableLayoutPanel.SuspendLayout();
         descriptionFlowLayoutPanel.SuspendLayout();
@@ -205,18 +205,16 @@ partial class ProductForm
         nameTextBox.Size = new Size(768, 23);
         nameTextBox.TabIndex = 2;
         // 
-        // actionsFlowLayoutPanel
+        // saveButton
         // 
-        actionsFlowLayoutPanel.AutoSize = true;
-        actionsFlowLayoutPanel.Controls.Add(cancelButton);
-        actionsFlowLayoutPanel.Controls.Add(saveButton);
-        actionsFlowLayoutPanel.Dock = DockStyle.Right;
-        actionsFlowLayoutPanel.Location = new Point(560, 251);
-        actionsFlowLayoutPanel.Margin = new Padding(0);
-        actionsFlowLayoutPanel.Name = "actionsFlowLayoutPanel";
-        actionsFlowLayoutPanel.Size = new Size(208, 23);
-        actionsFlowLayoutPanel.TabIndex = 7;
-        actionsFlowLayoutPanel.WrapContents = false;
+        saveButton.Location = new Point(108, 0);
+        saveButton.Margin = new Padding(8, 0, 0, 0);
+        saveButton.Name = "saveButton";
+        saveButton.Size = new Size(100, 23);
+        saveButton.TabIndex = 1;
+        saveButton.Text = "Salvar";
+        saveButton.UseVisualStyleBackColor = true;
+        saveButton.Click += saveButton_Click;
         // 
         // cancelButton
         // 
@@ -229,16 +227,18 @@ partial class ProductForm
         cancelButton.UseVisualStyleBackColor = true;
         cancelButton.Click += cancelButton_Click;
         // 
-        // saveButton
+        // actionsFlowLayoutPanel
         // 
-        saveButton.Location = new Point(108, 0);
-        saveButton.Margin = new Padding(8, 0, 0, 0);
-        saveButton.Name = "saveButton";
-        saveButton.Size = new Size(100, 23);
-        saveButton.TabIndex = 1;
-        saveButton.Text = "Salvar";
-        saveButton.UseVisualStyleBackColor = true;
-        saveButton.Click += saveButton_Click;
+        actionsFlowLayoutPanel.AutoSize = true;
+        actionsFlowLayoutPanel.Controls.Add(cancelButton);
+        actionsFlowLayoutPanel.Controls.Add(saveButton);
+        actionsFlowLayoutPanel.Dock = DockStyle.Right;
+        actionsFlowLayoutPanel.Location = new Point(560, 251);
+        actionsFlowLayoutPanel.Margin = new Padding(0);
+        actionsFlowLayoutPanel.Name = "actionsFlowLayoutPanel";
+        actionsFlowLayoutPanel.Size = new Size(208, 23);
+        actionsFlowLayoutPanel.TabIndex = 7;
+        actionsFlowLayoutPanel.WrapContents = false;
         // 
         // ProductForm
         // 
@@ -279,8 +279,8 @@ partial class ProductForm
     private TextBox descriptionTextBox;
     private FlowLayoutPanel priceFlowLayoutPanel;
     private Label priceLabel;
+    private Controls.CurrencyTextBox priceTextBox;
     private FlowLayoutPanel actionsFlowLayoutPanel;
     private Button cancelButton;
     private Button saveButton;
-    private Controls.CurrencyTextBox priceTextBox;
 }
