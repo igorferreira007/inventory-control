@@ -271,7 +271,7 @@ public partial class MainForm : Form
         if (productId is null)
         {
             MessageBox.Show(
-                "Selecione um produto para editar.",
+                "Selecione um produto para aumentar estoque.",
                 "Atenção",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning);
@@ -282,6 +282,43 @@ public partial class MainForm : Form
         using var stockMovementForm = new StockMovementForm(
             productId.Value,
             _increaseProductStockUseCase,
+            _getProductUseCase);
+
+        var result = stockMovementForm.ShowDialog(this);
+
+        if (result == DialogResult.OK)
+            await LoadProductAsync();
+    }
+
+    private async void decreaseStockButton_Click(object sender, EventArgs e)
+    {
+        if (_decreaseProductStockUseCase is null || _getProductUseCase is null)
+        {
+            MessageBox.Show(
+                "Use cases não foram carregados pela injeção de dependência.",
+                "Erro",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+
+            return;
+        }
+
+        var productId = GetSelectedProductId();
+
+        if (productId is null)
+        {
+            MessageBox.Show(
+                "Selecione um produto para diminuir estoque.",
+                "Atenção",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+
+            return;
+        }
+
+        using var stockMovementForm = new StockMovementForm(
+            productId.Value,
+            _decreaseProductStockUseCase,
             _getProductUseCase);
 
         var result = stockMovementForm.ShowDialog(this);

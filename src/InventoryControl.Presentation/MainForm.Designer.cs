@@ -154,6 +154,7 @@ partial class MainForm
         decreaseStockButton.TabIndex = 4;
         decreaseStockButton.Text = "Saída Estoque";
         decreaseStockButton.UseVisualStyleBackColor = true;
+        decreaseStockButton.Click += decreaseStockButton_Click;
         // 
         // topPanel
         // 
