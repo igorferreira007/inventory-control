@@ -107,7 +107,43 @@ public partial class StockMovementForm : Form
 
     private async Task DecreaseProductStockAsync()
     {
-        throw new NotImplementedException();
+        if (_decreaseProductStockUseCase is null)
+        {
+            MessageBox.Show(
+                "Use case não foi carregado pela injeção de dependência.",
+                "Erro",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            return;
+        }
+
+        var quantity = (int)quantityNumericUpDown.Value;
+        var productId = _productId!.Value;
+
+        var request = new DecreaseProductStockRequestDto(productId, quantity);
+
+        var result = await _decreaseProductStockUseCase.Execute(request);
+
+        if (result.IsFailure)
+        {
+            MessageBox.Show(
+                this,
+                result.Message,
+                "Erro",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+
+            return;
+        }
+
+        MessageBox.Show(
+            "Quantidade removida com sucesso.",
+            "Sucesso",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information);
+
+        DialogResult = DialogResult.OK;
+        Close();
     }
 
     private async Task IncreaseProductStockAsync()
