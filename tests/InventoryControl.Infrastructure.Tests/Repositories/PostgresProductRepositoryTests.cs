@@ -162,6 +162,52 @@ public class PostgresProductRepositoryTests
     }
 
     [Fact]
+    public async Task Should_Return_Total_Items_Without_Search_Term()
+    {
+        await ClearDatabaseAsync();
+
+        await _repository.CreateAsync(Product.Create(
+            name: "Notebook",
+            price: 3500m));
+
+        await _repository.CreateAsync(Product.Create(
+            name: "Mouse",
+            price: 150m));
+
+        await _repository.CreateAsync(Product.Create(
+            name: "Keyboard",
+            price: 300m));
+
+        var totalItems = await _repository.CountAsync();
+
+        Assert.Equal(3, totalItems);
+    }
+
+    [Fact]
+    public async Task Should_Return_Total_Items_With_Search_Term()
+    {
+        await ClearDatabaseAsync();
+
+        await _repository.CreateAsync(Product.Create(
+            name: "Notebook Dell",
+            price: 3500m));
+
+        await _repository.CreateAsync(Product.Create(
+            name: "Notebook Lenovo",
+            price: 150m));
+
+        await _repository.CreateAsync(Product.Create(
+            name: "Keyboard",
+            price: 300m));
+
+        var searchTerm = "notebook";
+
+        var totalItems = await _repository.CountAsync(searchTerm);
+
+        Assert.Equal(2, totalItems);
+    }
+
+    [Fact]
     public async Task Should_Filter_Products_By_Search_Term()
     {
         await ClearDatabaseAsync();

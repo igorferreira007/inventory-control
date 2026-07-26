@@ -10,4 +10,5 @@ public interface IProductRepository
     Task<List<Product>> FindManyAsync(int pageNumber, int pageSize, string? searchTerm = null);
     Task SaveAsync(Product product);
     Task DeleteAsync(Product product);
+    Task<int> CountAsync(string? searchTerm = null);
 }

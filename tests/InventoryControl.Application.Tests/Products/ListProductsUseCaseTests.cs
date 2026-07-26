@@ -33,12 +33,13 @@ public class ListProductsUseCaseTests
 
         var result = await _sut.Execute(request);
 
-        var products = result.Value!.Products;
+        var (products, totalItems) = result.Value!;
 
         var productsIds = products.Select(p => p.Id).ToList();
 
         Assert.True(result.IsSuccess);
         Assert.Equal(3, products.Count);
+        Assert.Equal(3, totalItems);
         Assert.Contains(products, p => p.Id == 1);
         Assert.Contains(products, p => p.Id == 2);
         Assert.Contains(products, p => p.Id == 3);
@@ -51,9 +52,12 @@ public class ListProductsUseCaseTests
 
         var result = await _sut.Execute(request);
 
+        var (products, totalItems) = result.Value!;
+
         Assert.True(result.IsSuccess);
         Assert.Empty(_repository.Products);
-        Assert.Empty(result.Value!.Products);
+        Assert.Empty(products);
+        Assert.Equal(0, totalItems);
     }
 
     [Fact]
@@ -66,12 +70,13 @@ public class ListProductsUseCaseTests
 
         var result = await _sut.Execute(request);
 
-        var products = result.Value!.Products;
+        var (products, totalItems) = result.Value!;
 
         Assert.True(result.IsSuccess);
         Assert.Single(products);
         Assert.Equal(2, products[0].Id);
         Assert.Equal("Product test 2", products[0].Name);
+        Assert.Equal(1, totalItems);
     }
 
     [Fact]
@@ -84,13 +89,14 @@ public class ListProductsUseCaseTests
 
         var result = await _sut.Execute(request);
 
-        var products = result.Value!.Products;
+        var (products, totalItems) = result.Value!;
 
         Assert.True(result.IsSuccess);
         Assert.Equal(3, _repository.Products.Count);
         Assert.Single(products);
         Assert.Equal(1, products[0].Id);
         Assert.Equal("Product test 1", products[0].Name);
+        Assert.Equal(3, totalItems);
     }
 
     [Fact]
@@ -103,13 +109,14 @@ public class ListProductsUseCaseTests
 
         var result = await _sut.Execute(request);
 
-        var products = result.Value!.Products;
+        var (products, totalItems) = result.Value!;
 
         Assert.True(result.IsSuccess);
         Assert.Equal(3, _repository.Products.Count);
         Assert.Single(products);
         Assert.Equal(2, products[0].Id);
         Assert.Equal("Product test 2", products[0].Name);
+        Assert.Equal(3, totalItems);
     }
 
     [Fact]

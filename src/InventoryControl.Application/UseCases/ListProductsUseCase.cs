@@ -26,6 +26,8 @@ public class ListProductsUseCase
 
         var productEntities = await _productRepository.FindManyAsync(pageNumber, pageSize, searchTerm);
 
+        var totalItems = await _productRepository.CountAsync(searchTerm);
+
         var products = productEntities
             .Select(p => new ProductResponseDto(
                 Id: p.Id,
@@ -36,6 +38,6 @@ public class ListProductsUseCase
                 CreatedAt: p.CreatedAt))
             .ToList();
 
-        return new ListProductsResponseDto(products);
+        return new ListProductsResponseDto(products, totalItems);
     }
 }

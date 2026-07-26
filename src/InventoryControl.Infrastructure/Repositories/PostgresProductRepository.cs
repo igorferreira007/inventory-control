@@ -2,6 +2,7 @@
 using InventoryControl.Domain.Entities;
 using InventoryControl.Infrastructure.Database;
 using Npgsql;
+using System.Xml.Linq;
 
 namespace InventoryControl.Infrastructure.Repositories;
 
@@ -194,5 +195,34 @@ public class PostgresProductRepository : IProductRepository
         command.Parameters.AddWithValue("@stock_quantity", product.StockQuantity);
 
         await command.ExecuteNonQueryAsync();
+    }
+
+    public async Task<int> CountAsync(string? searchTerm = null)
+    {
+        var hasSeachTerm = !string.IsNullOrWhiteSpace(searchTerm);
+
+        var sql = hasSeachTerm ?
+            """
+            SELECT COUNT(*)
+            FROM products
+            WHERE name ILIKE @search_term;
+            """
+            :
+            """
+            SELECT COUNT(*)
+            FROM products;
+            """;
+
+        await using var connection = _connectionFactory.CreateConnection();
+        await connection.OpenAsync();
+
+        await using var command = new NpgsqlCommand(sql, connection);
+
+        if (searchTerm is not null)
+            command.Parameters.AddWithValue("@search_term", $"%{searchTerm.Trim()}%");
+
+        var totalItems = await command.ExecuteScalarAsync();
+
+        return Convert.ToInt32(totalItems);
     }
 }

@@ -70,4 +70,18 @@ public class InMemoryProductRepository : IProductRepository
 
         return Task.CompletedTask;
     }
+
+    public Task<int> CountAsync(string? searchTerm = null)
+    {
+        IEnumerable<Product> query = Products;
+
+        int totalItems;
+
+        if (searchTerm is not null)
+            query = query.Where(p => p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+        totalItems = query.Count();
+
+        return Task.FromResult(totalItems);
+    }
 }
