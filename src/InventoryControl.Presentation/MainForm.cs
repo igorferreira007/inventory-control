@@ -13,8 +13,9 @@ public partial class MainForm : Form
     private readonly IncreaseProductStockUseCase? _increaseProductStockUseCase;
     private readonly DecreaseProductStockUseCase? _decreaseProductStockUseCase;
 
-    private const int pageSize = 20;
+    private const int pageSize = 2;
     private int _currentPageNumber = 1;
+    private int _totalPages = 1;
 
     public MainForm()
     {
@@ -103,14 +104,17 @@ public partial class MainForm : Form
             return;
         }
 
-        var products = result.Value!.Products.ToList();
+        var (products, totalItems) = result.Value!;
 
-        productsDataGridView.DataSource = products;
+        productsDataGridView.DataSource = products.ToList();
 
-        currentPageLabel.Text = $"Página {_currentPageNumber}";
+        var totalPages = totalItems == 0 ? 1 : (int)Math.Ceiling(totalItems / (double)pageSize);
+        _totalPages = totalPages;
+
+        currentPageLabel.Text = $"Página {_currentPageNumber} / {totalPages}";
 
         previousPageButton.Enabled = _currentPageNumber > 1;
-        nextPageButton.Enabled = products.Count == pageSize;
+        nextPageButton.Enabled = _currentPageNumber < totalPages;
     }
 
     private async void searchProductButton_Click(object sender, EventArgs e)
@@ -353,6 +357,9 @@ public partial class MainForm : Form
 
     private async void nextPageButton_Click(object sender, EventArgs e)
     {
+        if (_currentPageNumber == _totalPages)
+            return;
+
         _currentPageNumber++;
 
         await LoadProductsAsync();

@@ -43,9 +43,9 @@ partial class MainForm
         searchProductButton = new Button();
         paginationPanel = new Panel();
         groupPaginationPanel = new Panel();
+        currentPageLabel = new Label();
         nextPageButton = new Button();
         previousPageButton = new Button();
-        currentPageLabel = new Label();
         mainTableLayoutPanel.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)productsDataGridView).BeginInit();
         bottomPanel.SuspendLayout();
@@ -236,18 +236,31 @@ partial class MainForm
         // groupPaginationPanel
         // 
         groupPaginationPanel.Anchor = AnchorStyles.None;
+        groupPaginationPanel.BackColor = SystemColors.Control;
+        groupPaginationPanel.Controls.Add(currentPageLabel);
         groupPaginationPanel.Controls.Add(nextPageButton);
         groupPaginationPanel.Controls.Add(previousPageButton);
-        groupPaginationPanel.Controls.Add(currentPageLabel);
-        groupPaginationPanel.Location = new Point(320, 0);
+        groupPaginationPanel.Location = new Point(300, 0);
         groupPaginationPanel.Margin = new Padding(0);
         groupPaginationPanel.Name = "groupPaginationPanel";
-        groupPaginationPanel.Size = new Size(127, 23);
+        groupPaginationPanel.Size = new Size(167, 23);
         groupPaginationPanel.TabIndex = 7;
+        // 
+        // currentPageLabel
+        // 
+        currentPageLabel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+        currentPageLabel.BackColor = SystemColors.Control;
+        currentPageLabel.Location = new Point(31, 4);
+        currentPageLabel.Margin = new Padding(0);
+        currentPageLabel.Name = "currentPageLabel";
+        currentPageLabel.Size = new Size(105, 15);
+        currentPageLabel.TabIndex = 1;
+        currentPageLabel.Text = "Página 1000 / 1000";
+        currentPageLabel.TextAlign = ContentAlignment.MiddleCenter;
         // 
         // nextPageButton
         // 
-        nextPageButton.Location = new Point(104, 0);
+        nextPageButton.Location = new Point(144, 0);
         nextPageButton.Margin = new Padding(8, 0, 0, 0);
         nextPageButton.Name = "nextPageButton";
         nextPageButton.Size = new Size(23, 23);
@@ -266,16 +279,6 @@ partial class MainForm
         previousPageButton.Text = "<";
         previousPageButton.UseVisualStyleBackColor = true;
         previousPageButton.Click += previousPageButton_Click;
-        // 
-        // currentPageLabel
-        // 
-        currentPageLabel.AutoSize = true;
-        currentPageLabel.Location = new Point(31, 4);
-        currentPageLabel.Margin = new Padding(0);
-        currentPageLabel.Name = "currentPageLabel";
-        currentPageLabel.Size = new Size(13, 15);
-        currentPageLabel.TabIndex = 1;
-        currentPageLabel.Text = "1";
         // 
         // MainForm
         // 
@@ -299,7 +302,6 @@ partial class MainForm
         topFlowLayoutPanel.PerformLayout();
         paginationPanel.ResumeLayout(false);
         groupPaginationPanel.ResumeLayout(false);
-        groupPaginationPanel.PerformLayout();
         ResumeLayout(false);
     }
 
