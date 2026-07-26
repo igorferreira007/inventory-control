@@ -13,6 +13,9 @@ public partial class MainForm : Form
     private readonly IncreaseProductStockUseCase? _increaseProductStockUseCase;
     private readonly DecreaseProductStockUseCase? _decreaseProductStockUseCase;
 
+    private const int pageSize = 20;
+    private int _currentPageNumber = 1;
+
     public MainForm()
     {
         InitializeComponent();
@@ -66,10 +69,10 @@ public partial class MainForm : Form
 
     private async void MainForm_Load(object sender, EventArgs e)
     {
-        await LoadProductAsync();
+        await LoadProductsAsync();
     }
 
-    private async Task LoadProductAsync()
+    private async Task LoadProductsAsync()
     {
         if (_listProductsUseCase is null)
         {
@@ -83,8 +86,8 @@ public partial class MainForm : Form
         }
 
         var request = new ListProductsRequestDto(
-            PageNumber: 1,
-            PageSize: 20,
+            PageNumber: _currentPageNumber,
+            PageSize: pageSize,
             SearchTerm: searchProductTextBox.Text);
 
         var result = await _listProductsUseCase.Execute(request);
@@ -100,12 +103,21 @@ public partial class MainForm : Form
             return;
         }
 
-        productsDataGridView.DataSource = result.Value!.Products.ToList();
+        var products = result.Value!.Products.ToList();
+
+        productsDataGridView.DataSource = products;
+
+        currentPageLabel.Text = $"Página {_currentPageNumber}";
+
+        previousPageButton.Enabled = _currentPageNumber > 1;
+        nextPageButton.Enabled = products.Count == pageSize;
     }
 
     private async void searchProductButton_Click(object sender, EventArgs e)
     {
-        await LoadProductAsync();
+        _currentPageNumber = 1;
+
+        await LoadProductsAsync();
     }
 
     private async void searchProductTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -113,7 +125,9 @@ public partial class MainForm : Form
         if (e.KeyCode != Keys.Enter)
             return;
 
-        await LoadProductAsync();
+        _currentPageNumber = 1;
+
+        await LoadProductsAsync();
     }
 
     private void searchProductTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -142,7 +156,7 @@ public partial class MainForm : Form
         var result = productForm.ShowDialog(this);
 
         if (result == DialogResult.OK)
-            await LoadProductAsync();
+            await LoadProductsAsync();
     }
 
     private long? GetSelectedProductId()
@@ -189,7 +203,7 @@ public partial class MainForm : Form
         var result = productForm.ShowDialog(this);
 
         if (result == DialogResult.OK)
-            await LoadProductAsync();
+            await LoadProductsAsync();
     }
 
     private async void deleteProductButton_Click(object sender, EventArgs e)
@@ -239,7 +253,7 @@ public partial class MainForm : Form
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
 
-            await LoadProductAsync();
+            await LoadProductsAsync();
 
             return;
         }
@@ -250,7 +264,7 @@ public partial class MainForm : Form
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
-        await LoadProductAsync();
+        await LoadProductsAsync();
     }
 
     private async void increaseStockButton_Click(object sender, EventArgs e)
@@ -287,7 +301,7 @@ public partial class MainForm : Form
         var result = stockMovementForm.ShowDialog(this);
 
         if (result == DialogResult.OK)
-            await LoadProductAsync();
+            await LoadProductsAsync();
     }
 
     private async void decreaseStockButton_Click(object sender, EventArgs e)
@@ -324,6 +338,23 @@ public partial class MainForm : Form
         var result = stockMovementForm.ShowDialog(this);
 
         if (result == DialogResult.OK)
-            await LoadProductAsync();
+            await LoadProductsAsync();
+    }
+
+    private async void previousPageButton_Click(object sender, EventArgs e)
+    {
+        if (_currentPageNumber == 1)
+            return;
+
+        _currentPageNumber--;
+
+        await LoadProductsAsync();
+    }
+
+    private async void nextPageButton_Click(object sender, EventArgs e)
+    {
+        _currentPageNumber++;
+
+        await LoadProductsAsync();
     }
 }

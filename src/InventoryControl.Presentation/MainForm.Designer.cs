@@ -41,12 +41,19 @@ partial class MainForm
         topFlowLayoutPanel = new FlowLayoutPanel();
         searchProductTextBox = new TextBox();
         searchProductButton = new Button();
+        paginationPanel = new Panel();
+        groupPaginationPanel = new Panel();
+        nextPageButton = new Button();
+        previousPageButton = new Button();
+        currentPageLabel = new Label();
         mainTableLayoutPanel.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)productsDataGridView).BeginInit();
         bottomPanel.SuspendLayout();
         bottomFlowLayoutPanel.SuspendLayout();
         topPanel.SuspendLayout();
         topFlowLayoutPanel.SuspendLayout();
+        paginationPanel.SuspendLayout();
+        groupPaginationPanel.SuspendLayout();
         SuspendLayout();
         // 
         // mainTableLayoutPanel
@@ -56,6 +63,7 @@ partial class MainForm
         mainTableLayoutPanel.Controls.Add(productsDataGridView, 0, 1);
         mainTableLayoutPanel.Controls.Add(bottomPanel, 0, 3);
         mainTableLayoutPanel.Controls.Add(topPanel, 0, 0);
+        mainTableLayoutPanel.Controls.Add(paginationPanel, 0, 2);
         mainTableLayoutPanel.Dock = DockStyle.Fill;
         mainTableLayoutPanel.Location = new Point(0, 0);
         mainTableLayoutPanel.Name = "mainTableLayoutPanel";
@@ -81,7 +89,7 @@ partial class MainForm
         productsDataGridView.Name = "productsDataGridView";
         productsDataGridView.ReadOnly = true;
         productsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        productsDataGridView.Size = new Size(768, 356);
+        productsDataGridView.Size = new Size(768, 333);
         productsDataGridView.TabIndex = 1;
         // 
         // bottomPanel
@@ -214,6 +222,61 @@ partial class MainForm
         searchProductButton.UseVisualStyleBackColor = true;
         searchProductButton.Click += searchProductButton_Click;
         // 
+        // paginationPanel
+        // 
+        paginationPanel.BackColor = SystemColors.Control;
+        paginationPanel.Controls.Add(groupPaginationPanel);
+        paginationPanel.Dock = DockStyle.Fill;
+        paginationPanel.Location = new Point(16, 380);
+        paginationPanel.Margin = new Padding(0);
+        paginationPanel.Name = "paginationPanel";
+        paginationPanel.Size = new Size(768, 23);
+        paginationPanel.TabIndex = 5;
+        // 
+        // groupPaginationPanel
+        // 
+        groupPaginationPanel.Anchor = AnchorStyles.None;
+        groupPaginationPanel.Controls.Add(nextPageButton);
+        groupPaginationPanel.Controls.Add(previousPageButton);
+        groupPaginationPanel.Controls.Add(currentPageLabel);
+        groupPaginationPanel.Location = new Point(320, 0);
+        groupPaginationPanel.Margin = new Padding(0);
+        groupPaginationPanel.Name = "groupPaginationPanel";
+        groupPaginationPanel.Size = new Size(127, 23);
+        groupPaginationPanel.TabIndex = 7;
+        // 
+        // nextPageButton
+        // 
+        nextPageButton.Location = new Point(104, 0);
+        nextPageButton.Margin = new Padding(8, 0, 0, 0);
+        nextPageButton.Name = "nextPageButton";
+        nextPageButton.Size = new Size(23, 23);
+        nextPageButton.TabIndex = 1;
+        nextPageButton.Text = ">";
+        nextPageButton.UseVisualStyleBackColor = true;
+        nextPageButton.Click += nextPageButton_Click;
+        // 
+        // previousPageButton
+        // 
+        previousPageButton.Location = new Point(0, 0);
+        previousPageButton.Margin = new Padding(0, 0, 8, 0);
+        previousPageButton.Name = "previousPageButton";
+        previousPageButton.Size = new Size(23, 23);
+        previousPageButton.TabIndex = 0;
+        previousPageButton.Text = "<";
+        previousPageButton.UseVisualStyleBackColor = true;
+        previousPageButton.Click += previousPageButton_Click;
+        // 
+        // currentPageLabel
+        // 
+        currentPageLabel.AutoSize = true;
+        currentPageLabel.Location = new Point(31, 4);
+        currentPageLabel.Margin = new Padding(0);
+        currentPageLabel.Name = "currentPageLabel";
+        currentPageLabel.Size = new Size(13, 15);
+        currentPageLabel.TabIndex = 1;
+        currentPageLabel.Text = "1";
+        // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -234,6 +297,9 @@ partial class MainForm
         topPanel.PerformLayout();
         topFlowLayoutPanel.ResumeLayout(false);
         topFlowLayoutPanel.PerformLayout();
+        paginationPanel.ResumeLayout(false);
+        groupPaginationPanel.ResumeLayout(false);
+        groupPaginationPanel.PerformLayout();
         ResumeLayout(false);
     }
 
@@ -252,4 +318,9 @@ partial class MainForm
     private FlowLayoutPanel topFlowLayoutPanel;
     private TextBox searchProductTextBox;
     private Button newProductButton;
+    private Panel paginationPanel;
+    private Panel groupPaginationPanel;
+    private Button nextPageButton;
+    private Button previousPageButton;
+    private Label currentPageLabel;
 }
