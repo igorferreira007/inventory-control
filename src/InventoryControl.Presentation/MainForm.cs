@@ -108,6 +108,8 @@ public partial class MainForm : Form
 
         productsDataGridView.DataSource = products.ToList();
 
+        ConfigureProductsDataGridViewColumns();
+
         var totalPages = totalItems == 0 ? 1 : (int)Math.Ceiling(totalItems / (double)pageSize);
         _totalPages = totalPages;
 
@@ -116,6 +118,32 @@ public partial class MainForm : Form
         previousPageButton.Enabled = _currentPageNumber > 1;
         nextPageButton.Enabled = _currentPageNumber < totalPages;
         totalItemsLabel.Text = $"Total de produtos: {totalItems}";
+    }
+
+    private void ConfigureProductsDataGridViewColumns()
+    {
+        if (productsDataGridView.Columns.Count == 0)
+            return;
+
+        productsDataGridView.Columns[nameof(ProductResponseDto.Id)].HeaderText = "Código";
+        productsDataGridView.Columns[nameof(ProductResponseDto.Name)].HeaderText = "Nome";
+        productsDataGridView.Columns[nameof(ProductResponseDto.Price)].HeaderText = "Preço";
+        productsDataGridView.Columns[nameof(ProductResponseDto.StockQuantity)].HeaderText = "Estoque";
+        productsDataGridView.Columns[nameof(ProductResponseDto.Description)].HeaderText = "Descrição";
+        productsDataGridView.Columns[nameof(ProductResponseDto.CreatedAt)].HeaderText = "Criado em";
+
+        productsDataGridView.Columns[nameof(ProductResponseDto.Price)]
+        .DefaultCellStyle.Format = "C2";
+
+        productsDataGridView.Columns[nameof(ProductResponseDto.CreatedAt)]
+            .DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+
+        productsDataGridView.Columns[nameof(ProductResponseDto.Id)].FillWeight = 25;
+        productsDataGridView.Columns[nameof(ProductResponseDto.Name)].FillWeight = 250;
+        productsDataGridView.Columns[nameof(ProductResponseDto.Price)].FillWeight = 50;
+        productsDataGridView.Columns[nameof(ProductResponseDto.StockQuantity)].FillWeight = 30;
+        productsDataGridView.Columns[nameof(ProductResponseDto.Description)].FillWeight = 250;
+        productsDataGridView.Columns[nameof(ProductResponseDto.CreatedAt)].FillWeight = 50;
     }
 
     private async void searchProductButton_Click(object sender, EventArgs e)

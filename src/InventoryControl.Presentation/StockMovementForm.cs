@@ -25,7 +25,7 @@ public partial class StockMovementForm : Form
         _increaseProductStockUseCase = increaseProductStockUseCase;
         _getProductUseCase = getProductUseCase;
 
-        productLabel.Text = $"Produto - Id: {productId}";
+        productLabel.Text = $"Produto - Código: {productId}";
         titleLabel.Text = "Entrada de Estoque";
         titleLabel.ForeColor = Color.ForestGreen;
     }
@@ -39,7 +39,7 @@ public partial class StockMovementForm : Form
         _decreaseProductStockUseCase = decreaseProductStockUseCase;
         _getProductUseCase = getProductUseCase;
 
-        productLabel.Text = $"Produto - Id: {productId}";
+        productLabel.Text = $"Produto - Código: {productId}";
         titleLabel.Text = "Saída de Estoque";
         titleLabel.ForeColor = Color.Red;
     }
