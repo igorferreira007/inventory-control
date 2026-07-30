@@ -13,7 +13,7 @@ public partial class MainForm : Form
     private readonly IncreaseProductStockUseCase? _increaseProductStockUseCase;
     private readonly DecreaseProductStockUseCase? _decreaseProductStockUseCase;
 
-    private const int pageSize = 2;
+    private const int pageSize = 50;
     private int _currentPageNumber = 1;
     private int _totalPages = 1;
 
@@ -115,6 +115,7 @@ public partial class MainForm : Form
 
         previousPageButton.Enabled = _currentPageNumber > 1;
         nextPageButton.Enabled = _currentPageNumber < totalPages;
+        totalItemsLabel.Text = $"Total de produtos: {totalItems}";
     }
 
     private async void searchProductButton_Click(object sender, EventArgs e)

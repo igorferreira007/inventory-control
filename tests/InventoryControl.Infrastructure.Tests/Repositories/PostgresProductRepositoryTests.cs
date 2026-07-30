@@ -238,8 +238,9 @@ public class PostgresProductRepositoryTests
         for (int i = 1; i <= 22; i++)
         {
             await _repository.CreateAsync(Product.Create(
-            name: $"Product {i:00}",
-            price: 10m));
+            name: $"Product {i:0000}",
+            price: 10m,
+            description: $"Description product {i}"));
         }
 
         var products = await _repository.FindManyAsync(

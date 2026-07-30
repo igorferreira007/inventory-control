@@ -28,6 +28,7 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         mainTableLayoutPanel = new TableLayoutPanel();
         productsDataGridView = new DataGridView();
         bottomPanel = new Panel();
@@ -42,6 +43,7 @@ partial class MainForm
         searchProductTextBox = new TextBox();
         searchProductButton = new Button();
         paginationPanel = new Panel();
+        totalItemsLabel = new Label();
         groupPaginationPanel = new Panel();
         currentPageLabel = new Label();
         nextPageButton = new Button();
@@ -90,7 +92,7 @@ partial class MainForm
         productsDataGridView.ReadOnly = true;
         productsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         productsDataGridView.Size = new Size(768, 333);
-        productsDataGridView.TabIndex = 1;
+        productsDataGridView.TabIndex = 9;
         // 
         // bottomPanel
         // 
@@ -103,7 +105,7 @@ partial class MainForm
         bottomPanel.MaximumSize = new Size(1280, 0);
         bottomPanel.Name = "bottomPanel";
         bottomPanel.Size = new Size(768, 23);
-        bottomPanel.TabIndex = 3;
+        bottomPanel.TabIndex = 5;
         bottomPanel.Resize += bottomPanel_Resize;
         // 
         // deleteProductButton
@@ -112,7 +114,7 @@ partial class MainForm
         deleteProductButton.Location = new Point(668, 0);
         deleteProductButton.Name = "deleteProductButton";
         deleteProductButton.Size = new Size(100, 23);
-        deleteProductButton.TabIndex = 6;
+        deleteProductButton.TabIndex = 8;
         deleteProductButton.Text = "Excluir";
         deleteProductButton.UseVisualStyleBackColor = true;
         deleteProductButton.Click += deleteProductButton_Click;
@@ -128,7 +130,7 @@ partial class MainForm
         bottomFlowLayoutPanel.Location = new Point(0, 0);
         bottomFlowLayoutPanel.Name = "bottomFlowLayoutPanel";
         bottomFlowLayoutPanel.Size = new Size(376, 23);
-        bottomFlowLayoutPanel.TabIndex = 5;
+        bottomFlowLayoutPanel.TabIndex = 4;
         bottomFlowLayoutPanel.WrapContents = false;
         // 
         // editProductButton
@@ -137,7 +139,7 @@ partial class MainForm
         editProductButton.Margin = new Padding(0);
         editProductButton.Name = "editProductButton";
         editProductButton.Size = new Size(100, 23);
-        editProductButton.TabIndex = 1;
+        editProductButton.TabIndex = 5;
         editProductButton.Text = "Editar";
         editProductButton.UseVisualStyleBackColor = true;
         editProductButton.Click += editProductButton_Click;
@@ -148,7 +150,7 @@ partial class MainForm
         increaseStockButton.Margin = new Padding(8, 0, 0, 0);
         increaseStockButton.Name = "increaseStockButton";
         increaseStockButton.Size = new Size(130, 23);
-        increaseStockButton.TabIndex = 3;
+        increaseStockButton.TabIndex = 6;
         increaseStockButton.Text = "Entrada Estoque";
         increaseStockButton.UseVisualStyleBackColor = true;
         increaseStockButton.Click += increaseStockButton_Click;
@@ -159,7 +161,7 @@ partial class MainForm
         decreaseStockButton.Margin = new Padding(8, 0, 0, 0);
         decreaseStockButton.Name = "decreaseStockButton";
         decreaseStockButton.Size = new Size(130, 23);
-        decreaseStockButton.TabIndex = 4;
+        decreaseStockButton.TabIndex = 7;
         decreaseStockButton.Text = "Saída Estoque";
         decreaseStockButton.UseVisualStyleBackColor = true;
         decreaseStockButton.Click += decreaseStockButton_Click;
@@ -174,7 +176,7 @@ partial class MainForm
         topPanel.MaximumSize = new Size(1280, 0);
         topPanel.Name = "topPanel";
         topPanel.Size = new Size(768, 23);
-        topPanel.TabIndex = 4;
+        topPanel.TabIndex = 1;
         topPanel.Resize += topPanel_Resize;
         // 
         // newProductButton
@@ -183,7 +185,7 @@ partial class MainForm
         newProductButton.Location = new Point(638, 0);
         newProductButton.Name = "newProductButton";
         newProductButton.Size = new Size(130, 23);
-        newProductButton.TabIndex = 7;
+        newProductButton.TabIndex = 2;
         newProductButton.Text = "Novo Produto";
         newProductButton.UseVisualStyleBackColor = true;
         newProductButton.Click += newProductButton_Click;
@@ -217,7 +219,7 @@ partial class MainForm
         searchProductButton.Margin = new Padding(8, 0, 0, 0);
         searchProductButton.Name = "searchProductButton";
         searchProductButton.Size = new Size(100, 23);
-        searchProductButton.TabIndex = 2;
+        searchProductButton.TabIndex = 1;
         searchProductButton.Text = "Buscar";
         searchProductButton.UseVisualStyleBackColor = true;
         searchProductButton.Click += searchProductButton_Click;
@@ -225,13 +227,25 @@ partial class MainForm
         // paginationPanel
         // 
         paginationPanel.BackColor = SystemColors.Control;
+        paginationPanel.Controls.Add(totalItemsLabel);
         paginationPanel.Controls.Add(groupPaginationPanel);
         paginationPanel.Dock = DockStyle.Fill;
         paginationPanel.Location = new Point(16, 380);
         paginationPanel.Margin = new Padding(0);
         paginationPanel.Name = "paginationPanel";
         paginationPanel.Size = new Size(768, 23);
-        paginationPanel.TabIndex = 5;
+        paginationPanel.TabIndex = 2;
+        // 
+        // totalItemsLabel
+        // 
+        totalItemsLabel.Anchor = AnchorStyles.Right;
+        totalItemsLabel.Location = new Point(608, 4);
+        totalItemsLabel.Margin = new Padding(0);
+        totalItemsLabel.Name = "totalItemsLabel";
+        totalItemsLabel.Size = new Size(160, 15);
+        totalItemsLabel.TabIndex = 8;
+        totalItemsLabel.Text = "Total de produtos: 999999999";
+        totalItemsLabel.TextAlign = ContentAlignment.MiddleRight;
         // 
         // groupPaginationPanel
         // 
@@ -244,7 +258,7 @@ partial class MainForm
         groupPaginationPanel.Margin = new Padding(0);
         groupPaginationPanel.Name = "groupPaginationPanel";
         groupPaginationPanel.Size = new Size(167, 23);
-        groupPaginationPanel.TabIndex = 7;
+        groupPaginationPanel.TabIndex = 3;
         // 
         // currentPageLabel
         // 
@@ -264,7 +278,7 @@ partial class MainForm
         nextPageButton.Margin = new Padding(8, 0, 0, 0);
         nextPageButton.Name = "nextPageButton";
         nextPageButton.Size = new Size(23, 23);
-        nextPageButton.TabIndex = 1;
+        nextPageButton.TabIndex = 4;
         nextPageButton.Text = ">";
         nextPageButton.UseVisualStyleBackColor = true;
         nextPageButton.Click += nextPageButton_Click;
@@ -275,7 +289,7 @@ partial class MainForm
         previousPageButton.Margin = new Padding(0, 0, 8, 0);
         previousPageButton.Name = "previousPageButton";
         previousPageButton.Size = new Size(23, 23);
-        previousPageButton.TabIndex = 0;
+        previousPageButton.TabIndex = 3;
         previousPageButton.Text = "<";
         previousPageButton.UseVisualStyleBackColor = true;
         previousPageButton.Click += previousPageButton_Click;
@@ -286,9 +300,10 @@ partial class MainForm
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
         Controls.Add(mainTableLayoutPanel);
+        Icon = (Icon)resources.GetObject("$this.Icon");
         MinimumSize = new Size(816, 0);
         Name = "MainForm";
-        Text = "MainForm";
+        Text = "Inventory Control";
         WindowState = FormWindowState.Maximized;
         Load += MainForm_Load;
         mainTableLayoutPanel.ResumeLayout(false);
@@ -325,4 +340,5 @@ partial class MainForm
     private Button nextPageButton;
     private Button previousPageButton;
     private Label currentPageLabel;
+    private Label totalItemsLabel;
 }
